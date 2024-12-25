@@ -23,6 +23,8 @@ def normalize_metrics(metrics):
     return pd.DataFrame(normalized, columns=['normalized_frequency', 'normalized_duration', 'normalized_traffic'])
 
 
+
+
 def top_customers(metrics, top_n=10):
     top_frequency = metrics.nlargest(top_n, 'session_frequency')
     top_duration = metrics.nlargest(top_n, 'session_duration')
