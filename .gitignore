@@ -1,3 +1,5 @@
 week-2/
 data/
 .env
+__pycache__/
+*.pyc
