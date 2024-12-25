@@ -16,6 +16,11 @@ def aggregate_user_data(df):
 def analyze_top_handsets(df):
     """Analyze top handsets and manufacturers."""
     #Top 10 Handsets
+    # Filter out 'undefined' values from the 'Handset Type' column
+    filtered_df = df[df['Handset Type'] != 'undefined']
+    # Get the top 10 handsets excluding 'undefined'
+    top_10_handsets = filtered_df['Handset Type'].value_counts().head(10)
+    print(top_10_handsets)
     top_10_handsets = df['Handset Type'].value_counts().head(10)
     #Top 3 Handset Manufacturers
     df['Handset Manufacturer'] = df['Handset Type'].apply(lambda x: x.split(' ')[0])
