@@ -34,9 +34,16 @@ def clean_data(df):
     df = df[df.isnull().sum(axis=1) <= threshold]
 
     # Drop columns with > 50% missing values
+    # Calculate the missing percentage for each column
     missing_percentage = 100 * (df.isnull().sum() / len(df))
-    columns_to_drop = missing_percentage[missing_percentage > 50].index
+    # Identify columns with > 50% missing values, excluding specified columns
+    columns_to_drop = missing_percentage[
+        (missing_percentage > 50) & 
+        (~missing_percentage.index.isin(['TCP DL Retrans. Vol (Bytes)', 'TCP UL Retrans. Vol (Bytes)']))
+    ].index
+    # Drop the selected columns
     df.drop(columns=columns_to_drop, inplace=True)
+
 
     # Handle missing numeric values with the column mean
     df.fillna(df.mean(numeric_only=True), inplace=True)
